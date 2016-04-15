@@ -204,3 +204,19 @@ pre {
         }
     }
 }
+
+/**
+ * Center Images
+ */
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
+
+/**
+ * Excerpts
+ */
+.excerpt {
+    font-size: $small-font-size;
+}

@@ -15,5 +15,8 @@ url: "http://robmikh.com" # the base hostname & protocol for your site
 twitter_username: robmikh
 github_username:  robmikh
 
+# Content settings
+excerpt_separator: <!--more-->
+
 # Build settings
 markdown: kramdown
