@@ -11,7 +11,7 @@ email: rob.mikh@outlook.com
 description: > # this means to ignore newlines until "baseurl:"
   A development blog about all things UWP and Composition.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://robmikh.com" # the base hostname & protocol for your site
+url: "http://blog.robmikh.com" # the base hostname & protocol for your site
 twitter_username: robmikh
 github_username:  robmikh
 
