@@ -139,4 +139,4 @@ You can find the source code for this project here: {% include icon-github.html 
 
 If you'd like to learn more about animations, you can find that [here](https://msdn.microsoft.com/en-us/windows/uwp/graphics/composition-animation).
 
-Tune in next week where we'll be covering how to use image with your visuals and how to apply effects! Make sure you don't miss a thing by subscribing to the [RSS feed](/feed.xml).
+Tune in next week where we'll be covering how to use images with your visuals and how to apply effects! Make sure you don't miss a thing by subscribing to the [RSS feed](/feed.xml). If you have any questions or feedback, feel free to reach me on [twitter](https://www.twitter.com/robmikh) or by [email](mailto:robmikh@robmikh.com). For Composition questions you're also free to contact the team on [twitter](https://www.twitter.com/WindowsUI) or file an issue on our [GitHub page](https://github.com/Microsoft/WindowsUIDevLabs).
