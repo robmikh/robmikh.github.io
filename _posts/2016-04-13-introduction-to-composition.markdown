@@ -9,6 +9,8 @@ Welcome to the Composition API! If you've watch some of the [//build talks](http
 
 <!--more-->
 
+**UPDATE 04-14-2016: [@NicoVermerir](https://www.twitter.com/nicovermeir) made a great [suggestion](https://twitter.com/NicoVermeir/status/720864213992755200) involving the use of `nameof`, check it out bellow.**
+
 <h2>History Lesson</h2>
 
 Since Windows Vista, the DWM has been powering the Windows experience. Everything you see on the screen we almost always have some hand in drawing. Developers were able to (and still are!) leverage the system compositor using [Direct Composition](https://msdn.microsoft.com/en-us/library/windows/desktop/hh437371%28v=vs.85%29.aspx). DComp, as we call it, was a way to position elements (that we call Visuals) on the screen in a tree like structure. For any of you that know the concept of the Visual Tree in XAML, this should sound familiar. The API was C++ only, and when Windows 8 came around there wasn't a way to use the API in the new modern app world. This is where the Windows.UI.Composition API came into existence with Windows 10, as a way to leverage the DWM to make fast and beautiful user interfaces without breaking the perf bank.
@@ -93,11 +95,13 @@ animation.IterationBehavior = AnimationIterationBehavior.Forever;
 Now all that's left is to attach it to the visual:
 
 {% highlight c# %}
-visual.StartAnimation("RotationAngleInDegrees", animation);
+visual.StartAnimation(nameof(visual.RotationAngleInDegrees), animation);
 visual.CenterPoint = new Vector3(visual.Size.X / 2.0f, visual.Size.Y / 2.0f, 0);
 {% endhighlight %}
 
 Notice that starting an animation has two parameters, the first being the name of the property as a `string` and the second being the animation itself.
+
+**UPDATE 04-14-2016: Sometimes you're up late and `string`s can be hard. [@NicoVermerir](https://www.twitter.com/nicovermeir) made a great [suggestion](https://twitter.com/NicoVermeir/status/720864213992755200) to use the `nameof` operator when referencing a visual's property for use in an animation or expression. This is a great approach as it still gets you IntelliSense and is replaced at compile time, meaning that there shouldn't be any difference in performance. To learn more about the `nameof` operator, check out this [MSDN page](https://msdn.microsoft.com/en-us/library/dn986596.aspx). Thanks Nico!**
 
 That last line is just specifying what the center point of our visual will be. The `CenterPoint` property will determine the point at which the visual will rotate around. Since we want this point to be in the center of the visual, we set it to half the visual's width and height. This way the visual will rotate around its center. And that's it! The visual should now be rotating forever! But we can do even better than that. In the next bit we'll be covering two concepts at once: XAML interop and reusing animations.
 
@@ -126,7 +130,7 @@ buttonVisual.CenterPoint = new Vector3(
     (float)AnimatingButton.ActualHeight / 2.0f, 
     0.0f);
 
-buttonVisual.StartAnimation("RotationAngleInDegrees", animation);
+buttonVisual.StartAnimation(nameof(buttonVisual.RotationAngleInDegrees), animation);
 {% endhighlight %}
 
 One thing to keep in mind is that because we're using the button's `ActualWidth` and `ActualHeight` properties we need to make sure the control is loaded before we try this out, otherwise it will report a size of 0. The easiest way is to move all of the code we've written to `AnimatingButton`'s loaded event handler. Here's how it should look in the end:
