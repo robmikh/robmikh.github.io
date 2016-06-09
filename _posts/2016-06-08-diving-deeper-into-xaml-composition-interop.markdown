@@ -91,7 +91,7 @@ Note that this isn’t always true, and you can set `Window.Current.Content` to 
 
 <h2>Taking Advantage of the Visual Tree</h2>
 
-Now here’s where the fun begins. We stated before that calling `SetElementChildVisual` will place your visual as the topmost child of the `UIElement`. Luckily for us, Frame is a `UIElement`. This means that we can place content on the frame that will persist no matter what page is being displayed! You can take advantage of this in a page transition scenario. Let’s say that you have some image that you want to stay on the screen when you change pages, and even animate into its new position on the next page.
+Now here’s where the fun begins. We stated before that calling `SetElementChildVisual` will place your visual as the topmost child of the `UIElement`. Luckily for us, Frame is a `UIElement`. This means that we can place content on the frame that will persist no matter what page is being displayed! This works because the page hosted by a `Frame` is considered a child of the `Frame`, meaning that any visual you attach to the `Frame` will be drawn on-top of the page content. You can take advantage of this in a page transition scenario. Let’s say that you have some image that you want to stay on the screen when you change pages, and even animate into its new position on the next page.
 
 To do that you would pull the visual off of the current page and re-parent it to the `Frame`. Then you would tell the `Frame` to navigate to a new page. When the navigation completes, animate the visual to its new location and then pull the visual back off the `Frame` and re-parent it to the new page. That’s all it takes! I’ve created the following visualization to help you understand the flow:
 
@@ -99,7 +99,7 @@ To do that you would pull the visual off of the current page and re-parent it to
 <iframe src='https://gfycat.com/ifr/DevotedBonyAurochs' frameborder='0' scrolling='no' width='640' height='359.5505617977528' allowfullscreen></iframe>{: .center-image }
 
 
-You’ll notice that because we’re doing some re-parenting in this scenario, you can directly use the Visual you receive from `GetElementVisual`. You’ll have to use a visual that you’ve created. In the following example (which you can find [here](https://github.com/robmikh/blog.samples/tree/master/2016.06.08/FunWithFrames) on GitHub), we’ll take a rotating visual and take it from one page to another. The first page looks like this:
+You’ll notice that because we’re doing some re-parenting in this scenario, you can't directly use the Visual you receive from `GetElementVisual`. You’ll have to use a visual that you’ve created. In the following example (which you can find [here](https://github.com/robmikh/blog.samples/tree/master/2016.06.08/FunWithFrames) on GitHub), we’ll take a rotating visual and take it from one page to another. The first page looks like this:
 
 
 ![Page 1](/assets/page1.jpg){: .center-image }
