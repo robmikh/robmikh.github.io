@@ -40,6 +40,7 @@ Like all UWP (Universal Windows Platform) apps, a XAML app starts with a `CoreWi
 
 Regardless of the type of app you have, the `CoreWindow` is present and represents your app’s “window”. This holds true even if your app is fullscreen (like on a mobile or IOT device). Additionally, you would set your content root as the `CoreWindow`’s content. XAML handles this for you, but also gives you some control in the form of the `Window.Current.Content` property. If you’ve ever cracked open `App.xaml.cs` from the blank app template, you’ll see that the content of the window is set to a `Frame` control.
 
+
 {% highlight c# %}
 protected override void OnLaunched(LaunchActivatedEventArgs e)
 {
@@ -49,7 +50,8 @@ protected override void OnLaunched(LaunchActivatedEventArgs e)
     // just ensure that the window is active
     if (rootFrame == null)
     {
-        // Create a Frame to act as the navigation context and navigate to the first page
+        // Create a Frame to act as the navigation context and navigate to the
+        // first page
         rootFrame = new Frame();
 
         rootFrame.NavigationFailed += OnNavigationFailed;
@@ -67,9 +69,9 @@ protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
         if (rootFrame.Content == null)
         {
-            // When the navigation stack isn't restored navigate to the first page,
-            // configuring the new page by passing required information as a navigation
-            // parameter
+            // When the navigation stack isn't restored navigate 
+            // to the first page, configuring the new page by passing 
+            // required information as a navigation parameter
             rootFrame.Navigate(typeof(MainPage), e.Arguments);
         }
         // Ensure the current window is active
@@ -78,9 +80,12 @@ protected override void OnLaunched(LaunchActivatedEventArgs e)
 }
 {% endhighlight %}
 
+
 A typical app will look something like this:
 
+
 <iframe src='https://gfycat.com/ifr/FewConcernedGossamerwingedbutterfly' frameborder='0' scrolling='no' width='640' height='359.5505617977528' allowfullscreen></iframe>{: .center-image }
+
 
 Note that this isn’t always true, and you can set `Window.Current.Content` to just about anything. But for the most part, a frame is used as the “root content” for the `CoreWindow` in a XAML app. As you can see above, the `Frame` stays constant while your page changes. If you’ve ever wanted for content to persist no matter what page you’re on, or even between page changes, this is a very powerful piece of information that you can take advantage of…
 
@@ -90,22 +95,30 @@ Now here’s where the fun begins. We stated before that calling `SetElementChil
 
 To do that you would pull the visual off of the current page and re-parent it to the `Frame`. Then you would tell the `Frame` to navigate to a new page. When the navigation completes, animate the visual to its new location and then pull the visual back off the `Frame` and re-parent it to the new page. That’s all it takes! I’ve created the following visualization to help you understand the flow:
 
+
 <iframe src='https://gfycat.com/ifr/DevotedBonyAurochs' frameborder='0' scrolling='no' width='640' height='359.5505617977528' allowfullscreen></iframe>{: .center-image }
+
 
 You’ll notice that because we’re doing some re-parenting in this scenario, you can directly use the Visual you receive from `GetElementVisual`. You’ll have to use a visual that you’ve created. In the following example (which you can find [here](https://github.com/robmikh/blog.samples/tree/master/2016.06.08/FunWithFrames) on GitHub), we’ll take a rotating visual and take it from one page to another. The first page looks like this:
 
+
 ![Page 1](/assets/page1.jpg){: .center-image }
+
 
 When you click the button, it will take you to the second page which looks like this:
 
+
 ![Page 2](/assets/page2.jpg){: .center-image }
 
+
 On the first page we’ll create a simple rotating visual with a solid color as its content and set it as the child of the page:
+
 
 {% highlight c# %}
 private void InitComposition()
 {
-    var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+    var compositor = 
+        ElementCompositionPreview.GetElementVisual(this).Compositor;
 
     var visual = compositor.CreateSpriteVisual();
     visual.Size = new Vector2(75.0f, 75.0f);
@@ -126,43 +139,61 @@ private void InitComposition()
 }
 {% endhighlight %}
 
+
 Next, we’ll modify the event handler for the button. We’ll set the page’s child visual to null, and then set our visual as the child of our `Frame` (in this case we’ll use `Window.Current.Content`, which is our `Frame`). 
+
 
 {% highlight c# %}
 private void Button_Click(object sender, RoutedEventArgs e)
 {
     var visual = ElementCompositionPreview.GetElementChildVisual(this);
     ElementCompositionPreview.SetElementChildVisual(this, null);
-    ElementCompositionPreview.SetElementChildVisual(Window.Current.Content, visual);
+    ElementCompositionPreview.SetElementChildVisual(
+        Window.Current.Content, 
+        visual);
 
     Frame.Navigate(typeof(SecondaryPage));
 }
 {% endhighlight %}
 
+
 Finally, on the second page’s `OnNavigatedTo` method, we’ll take the visual away from the `Frame` and re-parent it to our current page. We'll also animate the visual to a new position.
+
 
 {% highlight c# %}
 protected override void OnNavigatedTo(NavigationEventArgs e)
 {
     base.OnNavigatedTo(e);
 
-    var visual = ElementCompositionPreview.GetElementChildVisual(Window.Current.Content);
-    ElementCompositionPreview.SetElementChildVisual(Window.Current.Content, null);
+    var visual = 
+        ElementCompositionPreview.GetElementChildVisual(
+            Window.Current.Content);
+    ElementCompositionPreview.SetElementChildVisual(
+        Window.Current.Content, 
+        null);
     ElementCompositionPreview.SetElementChildVisual(this, visual);
 
     var compositor = visual.Compositor;
     var animation = compositor.CreateVector3KeyFrameAnimation();
     animation.InsertKeyFrame(0.0f, visual.Offset);
-    animation.InsertKeyFrame(1.0f, new Vector3((float)Frame.ActualWidth - 150, visual.Offset.Y, visual.Offset.Z));
+    animation.InsertKeyFrame(
+        1.0f, 
+        new Vector3(
+            (float)Frame.ActualWidth - 150, 
+            visual.Offset.Y, 
+            visual.Offset.Z));
     animation.Duration = TimeSpan.FromMilliseconds(1500);
 
     visual.StartAnimation(nameof(Visual.Offset), animation);
 }
 {% endhighlight %}
 
+
 I also went back and added something similar for when the button takes you back on the second page back to the first. And that’s it! It should look like this:
 
+
 <iframe src='https://gfycat.com/ifr/SafePlayfulCatbird' frameborder='0' scrolling='no' width='640' height='481.203007518797' allowfullscreen></iframe>{: .center-image }
+
 
 You don’t have to only use one `Visual`; you can have entire subtrees that you re-parent! You also can use more complex content. This is very similar to how the `ConnectedAnimationService` works in the Anniversary Update, except that you can do this right now (We’ll be covering how to use this technique for page transitions in a future post)! But that’s not all, remember how we played a video inside of a visual [last time](http://blog.robmikh.com/uwp/composition/2016/05/28/video-shenanigins.html)? Using this technique along with video playback inside a `SpriteVisual` is a great way to implement seamless “picture-in-picture” functionality!
 
