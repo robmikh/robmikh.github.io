@@ -5,7 +5,7 @@ date:   2016-06-08 19:15:00 -0700
 categories: uwp xaml composition
 ---
 
-As we continue to explore the Composition API, we’ll be tackling increasingly advanced topics. In order to do cover these topics effectively, we’ll need to cover some base concepts in more detail. Additionally, this exploration from time to time will lead us into the world of Composition and XAML interop, so understanding how XAML’s visual tree relates to the Composition visual tree is crucially important. We’ll be covering concepts like drawing order and also cover some neat tricks.
+As we continue to explore the Composition API, we’ll be tackling increasingly advanced topics. In order to cover these topics effectively, we’ll need to cover some base concepts in more detail. Additionally, this exploration from time to time will lead us into the world of Composition and XAML interop, so understanding how XAML’s visual tree relates to the Composition visual tree is crucially important. We’ll be covering concepts like drawing order and also cover some neat tricks.
 
 <!--more-->
 
