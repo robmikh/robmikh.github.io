@@ -220,4 +220,4 @@ private void MainGridView_ContainerContentChanging(
 
 Now if you run this app on builds 10240 or 10586 (the November Update) the app won't crash when you run it! It won't have the implicit animation, but your users will appreciate still being able to use your app. 
 
-And that does it for this time. Thanks for reading! If you'd like to keep up to date with the blog, make sure you’re subscribed to the [RSS feed](http://blog.robmikh.com/feed.xml). As always, feel free to ask me questions on [twitter](https://twitter.com/robmikh) or by [email](mailto:robmikh@robmikh.com). Also feel free to come by the team's [GitHub page](https://github.com/Microsoft/WindowsUIDevLabs) to ask questions as well. See you next time!
+And that does it for this time. Thanks for reading! If you'd like to keep up to date with the blog, make sure you’re subscribed to the [RSS feed](http://blog.robmikh.com/feed.xml). As always, feel free to ask me questions ~~on twitter or~~ by [email](mailto:robmikh@robmikh.com). Also feel free to come by the team's [GitHub page](https://github.com/Microsoft/WindowsUIDevLabs) to ask questions as well. See you next time!

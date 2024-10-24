@@ -306,4 +306,4 @@ The Angle property's range is from 0 to 2 * Pi, and we have it going on forever 
 
 As you can tell, once you learn the building blocks of the API building on it becomes very easy! If you'd like to see the source for our finished product, you can find that [here](https://github.com/robmikh/blog.samples/tree/master/2016.04.19/EffectsDemo).
 
-As always, make sure you're [subscribed](http://blog.robmikh.com/feed.xml) so you never miss a post! Next week we will be covering expressions! As always let me know on [twitter](https://twitter.com/robmikh) or by [email](mailto:robmikh@robmikh.com) if you have any questions or feedback.
+As always, make sure you're [subscribed](http://blog.robmikh.com/feed.xml) so you never miss a post! Next week we will be covering expressions! As always let me know ~~on twitter or~~ by [email](mailto:robmikh@robmikh.com) if you have any questions or feedback.
